@@ -1,0 +1,54 @@
+{
+  "name": "@promptwise-dev/core",
+  "version": "1.0.0",
+  "description": "The shared PromptWise engine: heuristic prompt rewriting, context-flood detection, global memory, and persona inference. Zero dependencies; runs in Node and the browser.",
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise/tree/main/packages/core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/Nirupam014/promptwise/issues"
+  },
+  "keywords": [
+    "prompt",
+    "prompt-engineering",
+    "llm",
+    "tokens",
+    "tokenizer",
+    "optimization",
+    "ai",
+    "gpt",
+    "claude",
+    "context"
+  ],
+  "type": "commonjs",
+  "main": "src/index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "require": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

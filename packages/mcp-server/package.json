@@ -1,0 +1,22 @@
+{
+  "name": "@promptwise-dev/mcp-server",
+  "version": "1.0.0",
+  "description": "PromptWise as an MCP connector for Claude desktop and other MCP clients: optimize, summarize, analyze context, and remember/recall facts. Zero dependencies.",
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise/tree/main/packages/mcp-server#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git",
+    "directory": "packages/mcp-server"
+  },
+  "bugs": { "url": "https://github.com/Nirupam014/promptwise/issues" },
+  "type": "commonjs",
+  "bin": { "promptwise-mcp": "server.js" },
+  "files": ["server.js", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@promptwise-dev/core": "^1.0.0"
+  },
+  "publishConfig": { "access": "public" }
+}

@@ -1,0 +1,180 @@
+{
+  "name": "promptwise-vscode",
+  "displayName": "PromptWise",
+  "description": "Smarter prompts, fewer tokens. Rewrite the selected prompt before sending it to your AI assistant.",
+  "version": "1.0.0",
+  "publisher": "promptwise",
+  "private": true,
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise/tree/main/packages/vscode-extension#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git",
+    "directory": "packages/vscode-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/Nirupam014/promptwise/issues"
+  },
+  "keywords": [
+    "prompt",
+    "llm",
+    "tokens",
+    "ai",
+    "prompt-engineering"
+  ],
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Chat"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "promptwise.chat",
+        "name": "promptwise",
+        "fullName": "PromptWise",
+        "description": "Optimize prompts, summarize text, and manage memory",
+        "isSticky": true,
+        "commands": [
+          { "name": "optimize", "description": "Tighten a prompt to use fewer tokens" },
+          { "name": "summarize", "description": "Summarize the provided text" },
+          { "name": "remember", "description": "Save a durable fact to memory" },
+          { "name": "recall", "description": "List remembered facts" }
+        ]
+      }
+    ],
+    "languageModelTools": [
+      {
+        "name": "promptwise_optimize",
+        "displayName": "PromptWise: Optimize Prompt",
+        "modelDescription": "Rewrite a prompt to use fewer tokens while preserving intent, code, URLs and numbers. Returns the optimized prompt and the token saving.",
+        "toolReferenceName": "promptwiseOptimize",
+        "canBeReferencedInPrompt": true,
+        "icon": "$(sparkle)",
+        "tags": ["promptwise", "prompt", "tokens"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "prompt": { "type": "string", "description": "The prompt text to optimize." } },
+          "required": ["prompt"]
+        }
+      },
+      {
+        "name": "promptwise_summarize",
+        "displayName": "PromptWise: Summarize",
+        "modelDescription": "Summarize a block of text or conversation into a concise summary plus durable facts.",
+        "toolReferenceName": "promptwiseSummarize",
+        "canBeReferencedInPrompt": true,
+        "icon": "$(sparkle)",
+        "tags": ["promptwise", "summarize"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "text": { "type": "string", "description": "The text or conversation to summarize." } },
+          "required": ["text"]
+        }
+      },
+      {
+        "name": "promptwise_recall",
+        "displayName": "PromptWise: Recall Memory",
+        "modelDescription": "Return durable facts PromptWise has remembered (preferences, stack, project context), optionally filtered by a topic.",
+        "toolReferenceName": "promptwiseRecall",
+        "canBeReferencedInPrompt": true,
+        "icon": "$(sparkle)",
+        "tags": ["promptwise", "memory"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "query": { "type": "string", "description": "Optional topic to filter facts by." } }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "promptwise.optimizeSelection",
+        "title": "PromptWise: Optimize Selected Prompt"
+      },
+      {
+        "command": "promptwise.optimizeInput",
+        "title": "PromptWise: Optimize a Prompt (input box)"
+      },
+      {
+        "command": "promptwise.addMemory",
+        "title": "PromptWise: Add Fact to Global Memory"
+      },
+      {
+        "command": "promptwise.deepOptimize",
+        "title": "PromptWise: Deep Optimize with Local LLM"
+      },
+      {
+        "command": "promptwise.curateMemory",
+        "title": "PromptWise: Curate Memory with Local LLM"
+      },
+      {
+        "command": "promptwise.summarize",
+        "title": "PromptWise: Summarize Selection"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "promptwise.optimizeSelection",
+          "when": "editorHasSelection",
+          "group": "1_modification"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "promptwise.optimizeSelection",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "promptwise.deepOptimize",
+        "key": "ctrl+alt+shift+p",
+        "mac": "cmd+alt+shift+p",
+        "when": "editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "PromptWise",
+      "properties": {
+        "promptwise.minSaving": {
+          "type": "number",
+          "default": 3,
+          "description": "Minimum token saving before offering a rewrite."
+        },
+        "promptwise.llm.backend": {
+          "type": "string",
+          "enum": [
+            "off",
+            "ollama"
+          ],
+          "default": "off",
+          "description": "Local LLM backend for deep optimization. Ollama must be running locally."
+        },
+        "promptwise.llm.endpoint": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server endpoint."
+        },
+        "promptwise.llm.model": {
+          "type": "string",
+          "default": "llama3.2:3b",
+          "description": "Ollama model to use (pull it first with `ollama pull <model>`)."
+        },
+        "promptwise.outputBudget.maxWords": {
+          "type": "number",
+          "default": 0,
+          "description": "Append a brevity directive capping the model's answer to ~N words (0 = off). Saves output tokens."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+    <title>PromptWise</title>
+    <style>
+      :root { --accent: #1f4e79; --accent2: #2e75b6; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 12px 14px;
+        font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #1a2735; background: #f7f9fc; -webkit-user-select: none; user-select: none;
+      }
+      .bar { display: flex; align-items: center; gap: 8px; -webkit-app-region: drag; }
+      .bar h1 { font-size: 14px; color: var(--accent); margin: 0; }
+      .bar .spark { color: var(--accent2); }
+      .bar .grow { flex: 1; }
+      .bar button { -webkit-app-region: no-drag; }
+      textarea {
+        width: 100%; height: 96px; margin: 8px 0; padding: 8px 10px; resize: none;
+        border: 1px solid #c7d8ec; border-radius: 9px; font: inherit; -webkit-user-select: text; user-select: text;
+      }
+      .row { display: flex; align-items: center; gap: 8px; }
+      button {
+        cursor: pointer; border: none; border-radius: 8px; padding: 7px 12px; font: 12px/1 inherit; font-weight: 600;
+        background: #e7eef6; color: #25405c;
+      }
+      button.primary { background: var(--accent); color: #fff; }
+      button.primary:hover { background: var(--accent2); }
+      button:disabled { opacity: .55; cursor: default; }
+      .meta { font-size: 11px; color: #6a7c90; margin: 6px 0; min-height: 14px; }
+      .out {
+        margin-top: 8px; padding: 9px 11px; min-height: 70px; white-space: pre-wrap;
+        background: #fff; border: 1px solid #d8e3ef; border-radius: 9px; font-size: 13px; -webkit-user-select: text; user-select: text;
+      }
+      .out.streaming { color: #5b6b7d; }
+      .settings { display: none; margin-top: 8px; padding: 8px 10px; background: #eef3f9; border-radius: 9px; }
+      .settings.on { display: block; }
+      .settings label { display: block; font-size: 11px; color: #5b6b7d; margin: 6px 0 2px; }
+      .settings input, .settings select { width: 100%; padding: 5px 7px; border: 1px solid #c7d8ec; border-radius: 7px; font: inherit; }
+      .pill { font-size: 10px; padding: 2px 7px; border-radius: 999px; background: #e7eef6; color: #25405c; }
+      .pill.ok { background: #def0e2; color: #1f7a3d; } .pill.bad { background: #f6e1dd; color: #b04a3a; }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <span class="spark">✦</span>
+      <h1>PromptWise</h1>
+      <span id="status" class="pill">heuristic</span>
+      <span class="grow"></span>
+      <button id="gear" title="Settings">⚙</button>
+      <button id="close" title="Hide (Esc)">✕</button>
+    </div>
+
+    <textarea id="input" placeholder="Type or paste a prompt… (⌘⇧Space toggles this window)"></textarea>
+
+    <div class="row">
+      <button id="optimize" class="primary">Optimize</button>
+      <button id="optimize-llm">Optimize with LLM</button>
+      <span class="grow"></span>
+      <label class="meta"><input type="checkbox" id="brief" /> brief answer</label>
+    </div>
+
+    <div id="meta" class="meta"></div>
+    <div id="out" class="out"></div>
+
+    <div class="row" style="margin-top:8px">
+      <button id="copy" class="primary" disabled>Copy &amp; close</button>
+      <button id="copy-only" disabled>Copy</button>
+    </div>
+
+    <div id="settings" class="settings">
+      <label for="set-backend">Local LLM backend</label>
+      <select id="set-backend">
+        <option value="off">Off (heuristic only)</option>
+        <option value="ollama">Ollama (localhost)</option>
+      </select>
+      <label for="set-endpoint">Ollama endpoint</label>
+      <input id="set-endpoint" placeholder="http://localhost:11434" />
+      <label for="set-model">Ollama model</label>
+      <input id="set-model" placeholder="llama3.2:3b" />
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

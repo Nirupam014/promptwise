@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "PromptWise",
+  "version": "1.1.0",
+  "description": "Smarter prompts, fewer tokens. Rewrites your prompt before you send it (heuristic + optional local LLM) and nudges you when the chat gets bloated.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["storage", "offscreen"],
+  "host_permissions": [
+    "http://localhost:11434/*",
+    "http://127.0.0.1:11434/*",
+    "https://esm.run/*",
+    "https://cdn.jsdelivr.net/*",
+    "https://*.jsdelivr.net/*",
+    "https://huggingface.co/*",
+    "https://*.huggingface.co/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "PromptWise",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "vendor/core/tokens.js",
+        "vendor/core/text.js",
+        "vendor/core/protect.js",
+        "vendor/core/memory.js",
+        "vendor/core/persona.js",
+        "vendor/core/brevity.js",
+        "vendor/core/summarize.js",
+        "vendor/core/modelfit.js",
+        "vendor/core/rewrite.js",
+        "vendor/core/flood.js",
+        "vendor/core/engine.js",
+        "vendor/core/llm/provider.js",
+        "vendor/core/llm/tasks.js",
+        "vendor/core/llm/ollama.js",
+        "vendor/core/llm/webllm.js",
+        "vendor/core/llm/chromeai.js",
+        "src/content.js"
+      ],
+      "css": ["src/overlay.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

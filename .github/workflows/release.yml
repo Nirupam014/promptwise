@@ -1,0 +1,51 @@
+name: Release
+
+# Publishes the scoped packages to npm when you push a version tag (e.g. v1.0.0)
+# and creates a GitHub Release. Requires an NPM_TOKEN secret with publish rights
+# to the @promptwise-dev scope.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write # npm provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Test
+        run: node --test packages/core/test/*.test.js
+
+      - name: Verify vendored core is in sync
+        run: node scripts/sync-core.js --check
+
+      # Publish in dependency order: core first, then the packages that depend on it.
+      - name: Publish @promptwise-dev/core
+        run: npm publish -w @promptwise-dev/core --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @promptwise-dev/cli
+        run: npm publish -w @promptwise-dev/cli --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @promptwise-dev/mcp-server
+        run: npm publish -w @promptwise-dev/mcp-server --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true

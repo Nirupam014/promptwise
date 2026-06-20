@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3140"/>
+      <stop offset="1" stop-color="#232834"/>
+    </linearGradient>
+  </defs>
+
+  <!-- window -->
+  <rect x="10" y="10" width="800" height="340" rx="12" fill="#1b1f29" stroke="#2e3442"/>
+  <rect x="10" y="10" width="800" height="36" rx="12" fill="url(#bar)"/>
+  <rect x="10" y="34" width="800" height="12" fill="#232834"/>
+  <circle cx="32" cy="28" r="6" fill="#ff5f57"/>
+  <circle cx="52" cy="28" r="6" fill="#febc2e"/>
+  <circle cx="72" cy="28" r="6" fill="#28c840"/>
+  <text x="410" y="32" text-anchor="middle" fill="#8b93a7" font-size="13">✦ PromptWise</text>
+
+  <!-- command -->
+  <text x="30" y="78" font-size="13.5" fill="#9aa4b8">$</text>
+  <text x="46" y="78" font-size="13.5" fill="#e8ecf4">promptwise <tspan fill="#9ad27f">"Could you please kindly help me to write a Python</tspan></text>
+  <text x="46" y="98" font-size="13.5" fill="#9ad27f">function in order to parse a CSV file. Thank you so much in advance!"</text>
+
+  <!-- output -->
+  <text x="30" y="138" font-size="13" fill="#7f8aa0">persona: <tspan fill="#62b6ff">developer</tspan>  ·  task: <tspan fill="#62b6ff">coding</tspan></text>
+  <text x="30" y="160" font-size="13" fill="#7f8aa0">tokens:  31 → <tspan fill="#3ddc84" font-weight="bold">15</tspan>  <tspan fill="#3ddc84" font-weight="bold">(−52%, saved 16)</tspan></text>
+  <text x="30" y="182" font-size="13" fill="#7f8aa0">changes: removed filler/politeness ×4, tightened verbose phrasing ×1</text>
+
+  <!-- rewritten -->
+  <text x="30" y="214" font-size="13" fill="#c9b3ff" font-weight="bold">— rewritten —</text>
+  <rect x="28" y="226" width="764" height="40" rx="8" fill="#222a38" stroke="#33405a"/>
+  <text x="44" y="251" font-size="14" fill="#eef3fb">Help me to write a Python function to parse a CSV file.</text>
+
+  <!-- model-fit nudge -->
+  <rect x="28" y="284" width="764" height="44" rx="8" fill="#2a2410" stroke="#5a4a12"/>
+  <text x="44" y="303" font-size="12.5" fill="#f0c674">⚠ model: this looks like a simple task — gpt-4o may be overkill.</text>
+  <text x="44" y="320" font-size="12.5" fill="#f0c674">Consider gpt-4o-mini to cut cost.</text>
+</svg>

@@ -1,0 +1,51 @@
+{
+  "name": "promptwise",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smarter Prompts. Better Results. A universal prompt-optimization layer for browser, IDE, CLI, and desktop AI tools.",
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nirupam014/promptwise/issues"
+  },
+  "keywords": [
+    "prompt",
+    "prompt-engineering",
+    "llm",
+    "tokens",
+    "optimization",
+    "ai",
+    "gpt",
+    "claude",
+    "cost-reduction"
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test packages/core/test/*.test.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "sync-core": "node scripts/sync-core.js",
+    "check-core": "node scripts/sync-core.js --check",
+    "build:firefox": "node scripts/sync-core.js && node scripts/build-firefox.js",
+    "cli": "node packages/cli/promptwise.js",
+    "demo": "node packages/cli/promptwise.js \"Could you please kindly help me to write a Python function in order to parse a CSV file. Thank you so much in advance!\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.0"
+  }
+}

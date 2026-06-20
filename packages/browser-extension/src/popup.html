@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root { --accent: #1f4e79; --accent2: #2e75b6; }
+      body {
+        width: 320px; margin: 0; padding: 14px 14px 16px;
+        font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #1a2735; background: #fff;
+      }
+      h1 { margin: 0; font-size: 16px; color: var(--accent); }
+      .tag { font-size: 11px; color: var(--accent2); font-style: italic; margin: 1px 0 12px; }
+      .row { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; }
+      .stats { display: flex; gap: 10px; margin: 10px 0 14px; }
+      .stat { flex: 1; background: #eef3f9; border-radius: 10px; padding: 10px; text-align: center; }
+      .stat b { display: block; font-size: 18px; color: var(--accent); }
+      .stat span { font-size: 10px; color: #5b6b7d; text-transform: uppercase; letter-spacing: .03em; }
+      label.switch { font-weight: 600; }
+      input[type="checkbox"] { transform: scale(1.2); }
+      h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #7a8aa0; margin: 14px 0 6px; }
+      .mem { display: flex; gap: 6px; }
+      .mem input { flex: 1; padding: 6px 8px; border: 1px solid #c7d8ec; border-radius: 7px; font: inherit; }
+      .mem button, .clear {
+        cursor: pointer; border: none; border-radius: 7px; padding: 6px 10px;
+        background: var(--accent); color: #fff; font: 12px/1 inherit; font-weight: 600;
+      }
+      .mem button:hover { background: var(--accent2); }
+      ul { list-style: none; margin: 8px 0 0; padding: 0; max-height: 150px; overflow: auto; }
+      li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid #eef0f3; }
+      li .txt { flex: 1; }
+      li .del { cursor: pointer; color: #b04a3a; background: none; border: none; font: 12px/1 inherit; }
+      .empty { color: #98a4b3; font-style: italic; }
+      .clear { background: #eef3f9; color: #5b6b7d; margin-top: 8px; }
+      select { padding: 5px 6px; border: 1px solid #c7d8ec; border-radius: 7px; font: inherit; }
+      .llm-fields { display: none; gap: 6px; margin: 6px 0; }
+      .llm-fields.on { display: flex; flex-direction: column; }
+      .llm-fields input { padding: 6px 8px; border: 1px solid #c7d8ec; border-radius: 7px; font: inherit; }
+      .status { font-size: 12px; color: #5b6b7d; }
+      .status.ok { color: #1f7a3d; } .status.bad { color: #b04a3a; }
+      .hint { color: #98a4b3; font-weight: 400; font-size: 11px; }
+      input[type="number"] { padding: 5px 6px; border: 1px solid #c7d8ec; border-radius: 7px; font: inherit; }
+      .fix { margin: 6px 0 2px; padding: 8px 10px; background: #fff6e8; border: 1px solid #f1d09a; border-radius: 8px; font-size: 12px; color: #6a4a12; }
+      .fix code { display: block; margin: 6px 0; padding: 6px 8px; background: #2b2b2b; color: #eee; border-radius: 6px; font: 11px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; }
+      .fix button { cursor: pointer; border: none; border-radius: 6px; padding: 4px 10px; background: #1f4e79; color: #fff; font: 11px/1 inherit; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1>PromptWise</h1>
+    <div class="tag">Smarter Prompts. Better Results.</div>
+
+    <div class="row">
+      <label class="switch" for="enabled">Suggestions on this site</label>
+      <input type="checkbox" id="enabled" checked />
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="s-prompts">0</b><span>prompts</span></div>
+      <div class="stat"><b id="s-tokens">0</b><span>tokens saved</span></div>
+    </div>
+
+    <h2>Local LLM</h2>
+    <div class="row">
+      <label for="llm-backend">Backend</label>
+      <select id="llm-backend">
+        <option value="off">Off (heuristic only)</option>
+        <option value="chromeai">Chrome built-in AI (no setup)</option>
+        <option value="ollama">Ollama (localhost)</option>
+        <option value="webllm">WebLLM (in-browser)</option>
+      </select>
+    </div>
+    <div id="llm-ollama" class="llm-fields">
+      <input id="llm-endpoint" placeholder="http://localhost:11434" />
+      <div class="mem">
+        <select id="llm-ollama-model" style="flex:1"></select>
+        <button id="llm-refresh" title="Reload installed models">↻</button>
+      </div>
+      <div class="mem">
+        <input id="llm-pull-name" placeholder="pull a model, e.g. llama3.2:3b" />
+        <button id="llm-pull">Pull</button>
+      </div>
+      <div id="llm-pull-status" class="status"></div>
+    </div>
+    <div id="llm-webllm" class="llm-fields">
+      <input id="llm-webllm-model" placeholder="Llama-3.2-3B-Instruct-q4f16_1-MLC" />
+    </div>
+    <div class="row">
+      <button class="clear" id="llm-test">Test connection</button>
+      <span id="llm-status" class="status">—</span>
+    </div>
+    <div id="llm-fix" class="fix" style="display:none">
+      <div id="llm-fix-msg"></div>
+      <code id="llm-fix-cmd"></code>
+      <button id="llm-fix-copy">Copy</button>
+    </div>
+
+    <h2>Token saving</h2>
+    <div class="row">
+      <label for="brevity">Trim the model's answer <span class="hint">(saves output tokens)</span></label>
+      <input type="checkbox" id="brevity" />
+    </div>
+    <div class="row" id="brevity-words-row">
+      <label for="brevity-words">Max answer length (words)</label>
+      <input type="number" id="brevity-words" min="20" step="10" style="width:70px" />
+    </div>
+    <div class="row">
+      <label for="aggressive">Aggressive context trimming <span class="hint">(saves input tokens)</span></label>
+      <input type="checkbox" id="aggressive" />
+    </div>
+
+    <h2>Global memory</h2>
+    <div class="mem">
+      <input id="mem-input" placeholder="e.g. We use TypeScript and pnpm." />
+      <button id="mem-add">Add</button>
+    </div>
+    <ul id="mem-list"></ul>
+    <button class="clear" id="mem-clear">Clear memory</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

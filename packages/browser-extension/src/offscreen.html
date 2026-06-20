@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PromptWise WebLLM</title>
+  </head>
+  <body>
+    <!-- Hidden offscreen document: hosts the WebGPU-backed WebLLM engine so the
+         service worker (which has no WebGPU) can run a fully in-browser model. -->
+    <script type="module" src="offscreen.js"></script>
+  </body>
+</html>

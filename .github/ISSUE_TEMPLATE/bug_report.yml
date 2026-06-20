@@ -1,0 +1,46 @@
+name: Bug report
+description: Report a problem with PromptWise
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Which surface?
+      options:
+        - core (engine)
+        - cli
+        - browser-extension
+        - vscode-extension
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Include the prompt/input where relevant. For the engine, the smaller the repro the better.
+      placeholder: |
+        1. Run `promptwise "..."`
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version (for core/cli)
+      placeholder: e.g. 20.11.0
+  - type: input
+    id: env
+    attributes:
+      label: Browser / editor + version (for extensions)
+      placeholder: e.g. Chrome 126, or VS Code 1.90
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?

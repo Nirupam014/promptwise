@@ -1,0 +1,25 @@
+{
+  "name": "@promptwise-dev/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "[Experimental] PromptWise desktop companion — a menu-bar/tray app with a global hotkey that optimizes prompts for the Claude, ChatGPT, and Gemini desktop apps (and anything else).",
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise/tree/main/packages/desktop#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git",
+    "directory": "packages/desktop"
+  },
+  "bugs": { "url": "https://github.com/Nirupam014/promptwise/issues" },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@promptwise-dev/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

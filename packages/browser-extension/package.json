@@ -1,0 +1,17 @@
+{
+  "name": "@promptwise-dev/browser-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PromptWise browser extension (MV3): inline prompt-rewrite suggestions and context-flood nudges for ChatGPT, Claude, and Gemini.",
+  "author": "Nirupam Chakrabarti",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirupam014/promptwise/tree/main/packages/browser-extension#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nirupam014/promptwise.git",
+    "directory": "packages/browser-extension"
+  },
+  "scripts": {
+    "sync-core": "node ../../scripts/sync-core.js"
+  }
+}

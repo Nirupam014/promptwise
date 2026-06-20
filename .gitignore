@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build / packaging output
+dist/
+build/
+coverage/
+*.tgz
+*.vsix
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+.vscode-test/
+
+# Env
+.env
+.env.local
+
+# Local PromptWise state (created at runtime by the CLI)
+.promptwise/
+
+# Generated Firefox build
+packages/browser-extension/dist-firefox/
+
+# Binary product docs (kept locally, not in the repo)
+*.docx
+
+# Internal maintainer docs (kept local; not part of the published repo)
+docs/OPEN_SOURCE_CHECKLIST.md
+docs/PUBLISHING.md
