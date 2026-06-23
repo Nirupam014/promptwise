@@ -1,6 +1,6 @@
 {
   "name": "@promptwise-dev/desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "[Experimental] PromptWise desktop companion — a menu-bar/tray app with a global hotkey that optimizes prompts for the Claude, ChatGPT, and Gemini desktop apps (and anything else).",
   "author": "Nirupam Chakrabarti",

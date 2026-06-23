@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "PromptWise",
-  "version": "1.1.0",
-  "description": "Smarter prompts, fewer tokens. Rewrites your prompt before you send it (heuristic + optional local LLM) and nudges you when the chat gets bloated.",
+  "version": "1.0.1",
+  "description": "Smarter prompts, fewer tokens. Rewrites your draft before you send it to ChatGPT, Claude, or Gemini, and flags context bloat.",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",

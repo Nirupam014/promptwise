@@ -1,6 +1,6 @@
 {
   "name": "@promptwise-dev/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The shared PromptWise engine: heuristic prompt rewriting, context-flood detection, global memory, and persona inference. Zero dependencies; runs in Node and the browser.",
   "author": "Nirupam Chakrabarti",
   "license": "MIT",

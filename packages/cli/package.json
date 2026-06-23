@@ -1,6 +1,6 @@
 {
   "name": "@promptwise-dev/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PromptWise on the command line: optimize prompts, detect context floods, and manage global memory from any terminal or coding agent.",
   "author": "Nirupam Chakrabarti",
   "license": "MIT",

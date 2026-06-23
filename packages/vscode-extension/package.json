@@ -2,7 +2,7 @@
   "name": "promptwise-vscode",
   "displayName": "PromptWise",
   "description": "Smarter prompts, fewer tokens. Rewrite the selected prompt before sending it to your AI assistant.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "promptwise",
   "private": true,
   "author": "Nirupam Chakrabarti",

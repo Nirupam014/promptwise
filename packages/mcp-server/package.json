@@ -1,6 +1,6 @@
 {
   "name": "@promptwise-dev/mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PromptWise as an MCP connector for Claude desktop and other MCP clients: optimize, summarize, analyze context, and remember/recall facts. Zero dependencies.",
   "author": "Nirupam Chakrabarti",
   "license": "MIT",
