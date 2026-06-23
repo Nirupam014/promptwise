@@ -33,6 +33,28 @@ test("extractiveSummary handles empty input", () => {
   assert.strictEqual(summarize.extractiveSummary(""), "");
 });
 
+// Regression: a thread where one theme is restated many times must not crowd
+// out the actual conclusion, and the repeated theme must not be duplicated.
+const REDUNDANT_THREAD = [
+  { role: "assistant", content: "The platform must focus on prevention, not reporting." },
+  { role: "assistant", content: "The platform must focus on prevention, not reporting." },
+  { role: "assistant", content: "The platform must focus on prevention, not reporting." },
+  { role: "assistant", content: "Token bills spike when context windows explode and expensive models get used unnecessarily." },
+  { role: "assistant", content: "Final recommendation: build Agent Reliability Cloud first, with AI Token CFO as a module inside it." },
+];
+
+test("dedupes a repeated theme and preserves the closing decision", () => {
+  const s = summarize.extractiveSummary(REDUNDANT_THREAD, { maxSentences: 3 });
+  assert.ok(/Agent Reliability Cloud/i.test(s), "keeps the final recommendation");
+  const repeated = (s.match(/prevention, not reporting/gi) || []).length;
+  assert.ok(repeated <= 1, "does not repeat the same theme: got " + repeated);
+});
+
+test("surfaces a distinct point instead of filling up on duplicates", () => {
+  const s = summarize.extractiveSummary(REDUNDANT_THREAD, { maxSentences: 3 });
+  assert.ok(/Token bills/i.test(s), "includes the other distinct point");
+});
+
 test("summarizeThread (no LLM) now returns an extractive summary, not null", async () => {
   const pw = new PromptWise();
   const res = await pw.summarizeThread(THREAD);

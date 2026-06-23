@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-06-23
+
+### Fixed
+
+- **Summarizer** (`@promptwise-dev/core`): a thread that restated one idea many
+  times could fill the summary with that single theme and drop the actual
+  conclusion. Sentence selection now adds a U-shaped position prior (favoring
+  the opening topic and closing decision), a decision-cue boost, and MMR-based
+  redundancy penalty, so repeated themes no longer crowd out distinct points or
+  the outcome. Vendored core re-synced into the browser and VS Code extensions.
+
 ## [1.0.0] - 2026-06-20
 
 Initial release.
